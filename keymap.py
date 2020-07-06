@@ -52,7 +52,7 @@ KEYMAP = {
     0x0C: 'clear',
     0x08: 'backspace',
     0x10: 'shift',
-    0x11: 'ctrl',
+    # 0x11: 'ctrl',
     0x12: 'alt',
     0x13: 'pause',
     0x14: 'capslock',
@@ -105,7 +105,7 @@ KEYMAP = {
     0x75: 'f6',
     0x76: 'f7',
     0x77: 'f8',
-    0x78: 'f9',
+    # 0x78: 'f9', # used for Pausing execution
     0x79: 'f10',
     0x7A: 'f11',
     0x7B: 'f12',

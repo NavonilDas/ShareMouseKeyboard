@@ -11,6 +11,7 @@ server.bind(('0.0.0.0', PORT))
 server.listen(5)
 client = None
 # client, addr = server.accept()
+ENABLE = True
 
 PREV_X, PREV_Y = -1, -1
 PREV_MOUSE_LEFT = windll.user32.GetKeyState(0x01) & 0x8000
@@ -41,13 +42,26 @@ def threadLoop():
     global PREV_Y
     global PREV_MOUSE_LEFT
     global PREV_MOUSE_RIGHT
+    global ENABLE
+
     while True:
         try:
+            if getKeyDown(0x78):
+                ENABLE = not ENABLE
+                time.sleep(1)
+
+            if not ENABLE:
+                continue
+
             mouse_left = windll.user32.GetKeyState(0x01)
             mouse_left = mouse_left & 0x8000
             mouse_right = windll.user32.GetKeyState(0x02)
             mouse_right = mouse_right & 0x8000
             x, y = getMousePos()
+            
+            for keycode, val in KEYMAP.items():
+                if getKeyDown(keycode):
+                    print(val)
 
             if mouse_left != PREV_MOUSE_LEFT:
                 PREV_MOUSE_LEFT = mouse_left
@@ -76,6 +90,9 @@ def threadLoop():
         # TODO: Increase time period if Required
         time.sleep(0.025)
 
+
+# for code, _ in KEYMAP.items():
+#     print(code)
 
 th = threading.Thread(target=threadLoop)
 th.start()
